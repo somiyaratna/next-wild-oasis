@@ -1,5 +1,3 @@
-import Navigation from "../_components/Navigation";
-
 export default function Page() {
   return (
     <div>
@@ -7,3 +5,7 @@ export default function Page() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "About",
+};
