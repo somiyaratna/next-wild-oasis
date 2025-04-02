@@ -2,6 +2,14 @@ import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 
+export const metadata = {
+  title: "Cabins",
+};
+
+// The amount of seconds after which next.js opts out of cached data. Changes the page from static to dynamic
+// export const revalidate = 0;
+export const revalidate = 3600;
+
 export default function Page() {
   return (
     <div>
@@ -22,7 +30,3 @@ export default function Page() {
     </div>
   );
 }
-
-export const metadata = {
-  title: "Cabins",
-};
