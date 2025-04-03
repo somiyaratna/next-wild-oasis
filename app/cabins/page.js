@@ -1,16 +1,18 @@
 import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
+import Filter from "../_components/Filter";
 
 export const metadata = {
   title: "Cabins",
 };
 
-// The amount of seconds after which next.js opts out of cached data. Changes the page from static to dynamic
+// The amount of seconds after which next.js opts out of cached data. Changes the page from static to dynamic.
 // export const revalidate = 0;
 export const revalidate = 3600;
 
-export default function Page() {
+export default function Page({ searchParams }) {
+  const filter = searchParams?.capacity ?? "all";
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -24,8 +26,13 @@ export default function Page() {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+      <div className="flex justify-end mb-4">
+        <Filter />
+      </div>
+
+      {/* The key is passed here because on clicking on it, it navigates to filter that is stored in URL using useSearchParams() and useRouter(), who useTransition, which disables Suspense ability to hide the already rendered page. Passing the key here fixes it, thus, the loading spinner is shown */}
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
