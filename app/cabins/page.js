@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 import Filter from "../_components/Filter";
+import ReservationReminder from "../_components/ReservationReminder";
 
 export const metadata = {
   title: "Cabins",
@@ -33,6 +34,7 @@ export default function Page({ searchParams }) {
       {/* The key is passed here because on clicking on it, it navigates to filter that is stored in URL using useSearchParams() and useRouter(), who useTransition, which disables Suspense ability to hide the already rendered page. Passing the key here fixes it, thus, the loading spinner is shown */}
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );
